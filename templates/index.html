@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>server</title>
+    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAATeu0AAa/fwAX45wAh/XOAK2c/wCMe/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIiIiIiIAACMzMzMzMyACQRERERETMgJBEREREREyAkERERERETICQRERERERMgJBEREREREyAkEREAARETICRVEBEQFVMgJFUREREVUyAkABEiIRADICQAEgACEAMgJERCAAIREyACIiAGACIiAAAAAGZgAAAAAAAAYGAAAADABwAAgAMAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAOBAAADgQAAhsMAAPx/AAD9fwAA" rel="icon" type="image/x-icon" />
+    <!--<link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwsLCTQAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAAAAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAwH/AAAA/wAAAP8AAAD/AAAA/wAAAP9G5f//Osbd/wABAf8AAAD/AAAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/0bl///Hx8f/AJh3/wCYd/8AAAD///////////8AAAD/AJh3/wCYd/8AAAD/AAAAAAAAAAAAAAAABBgb////////////AAAA/wCYd/8AmHf/AGRM///////y9vX/AAAA/wCYd/8AmHf/AAAA/wAAAAAAAAAAAAAA//////////////////////8ACgf/AGFJ/wAAAP8AemD/AHpg/wB6YP8ANSn/ADwu/w4ODv8AAAAAAAAA/////////////////wCYd/8AemD/AHpg/wB6YP8AemD/FdWk/xXVpP8V1aT/FdWk/wCrhv8APC7/ADwu/wCYd/8ipIf/AJh3/wCYd/8AmHf/FdWk/xXVpP8V1aT/FdWk/xXVpP8V1aT/FdWk/xXVpP8AmHf/ADwu/wA8Lv8V1aT/FdWk/xXVpP8V1aT/AJh3/wCYd/8V1aT/FdWk/xXVpP8V1aT/FdWk/2PbtP9j27T/ADwu/wAAAAAAPC7/FdWk/xXVpP8V1aT/FdWk/xXVpP8AmHf/FdWk/xXVpP8V1aT/FdWk/xXVpP9j27T/ADwu/wAAAAAAAAAAAJh3/2Tgvf8V1aT/FdWk/xXVpP8V1aT/FdWk/xXVpP8V1aT/FdWk/xXVpP/9/v7/ADwu/wAAAAAAAAAAAAAAAAAAAAAAPC7/7fn1/xXVpP8V1aT/AAAA/wAAAP8V1aT/FdWk/xXVpP/t+fX/AHpg/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSP//t+fX/Y9u0/wAAAP8AAAD/FdWk/xXVpP/t+fX/AHpg/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJh3//////8V1aT/FdWk/xXVpP9j27T/Y9u0/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC7/FdWk/xXVpP/t+fX/Y9u0/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8Lv8AY07/AGNO/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAPBBAADwAQAA8AAAAOAAAADAAAAAgAAAAAAAAAAAAQAAAAMAAAAHAACADwAAwB8AAOA/AADwfwAA+P8AAA==" rel="icon" type="image/x-icon" />-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+</head>
+
+<body>
+    <div class="info">
+        <h1>{{diskinfo}}<br></h1>
+    </div>
+
+    <div>
+	{% with messages = get_flashed_messages() %}{% if messages %}	
+   	<ul class="message">
+        	{% for message in messages %}
+       		<li style="background-color: rgba(255, 0, 0, 0.4) !important;">{{ message }}</li>
+        	{% endfor %}
+    	</ul>
+	{% endif %}{% endwith %}
+    </div>
+
+    <!-- <p>{% with messages = get_flashed_messages() %}{% if messages %}
+        <ul class=flashes>{% for message in messages %}
+    	    <li>{{ message }}</li>{% endfor %}
+	</ul>{% endif %}{% endwith %}
+    </p> -->
+
+    <div class="title">
+	<h1>messages {{messinfo}}</h1>
+    </div>
+    <div style="/*padding-top: 27px;*/">
+        <ul class="message">
+	    {% for i in result[:10] %}
+	    <li onclick="clipcopy(this.innerText);"><pre>{{ i }}</pre></li>
+	    {% endfor %}
+        </ul>
+    </div>
+    <div class="title">
+	<h1 style="padding-top: 60px;">files {{filesinfo}}</h1>
+    </div>
+    <div style="/*padding-top: 67px;*/">
+        <ul class="message">
+	    {% for i in files %}
+	        <li><a href=get/{{i}}>{{i}}</a></li>
+	    {% endfor %}
+        </ul>
+    </div>
+    <div class="container containerinput">
+        <form method="post" action="/" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-6"><input type="file" name="file" autocomplete="off"></div>
+			<div class="col-md-6"><input type="submit" class="btn btn-primary textsubmit" value="submit"></div>
+		</div>
+        </form>
+        <form method="post" action="/text" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-6"><textarea name="text" autocomplete="off" class="textinput"></textarea></div>
+			<div class="col-md-6"><input type="submit" class="btn btn-primary textsubmit" value="submit"></div>
+        	</div>
+	</form>
+    </div>
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <script>
+	function clipcopy(x) {
+	    var elem = document.createElement("textarea");
+	    document.body.appendChild(elem);
+	    elem.value = x;
+	    elem.select();
+	    document.execCommand("copy");
+	    document.body.removeChild(elem);
+	}
+    </script>
+
+</body>
+
+</html>

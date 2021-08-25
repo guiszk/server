@@ -1,0 +1,41 @@
+<!doctype html>
+
+<title>servor</title>
+
+<p>
+	{{diskinfo}}
+</p>
+
+<p>{% with messages = get_flashed_messages() %}{% if messages %}
+    <ul class=flashes>{% for message in messages %}
+        <li>{{ message }}</li>{% endfor %}
+    </ul>{% endif %}{% endwith %}
+</p>
+
+<ul>
+	messages
+	{% for i in result[:10] %}
+	<pre> {{i}} </pre><br>
+	{% endfor %}
+</ul>
+
+<ul>
+	files
+	{% for i in files %}
+	<li><a href=get/{{i}}>{{i}}</a></li>
+	{% endfor %}
+</ul>
+
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+        <p><input type="file" name="file" autocomplete="off"></p>
+    </dl>
+    <p><input type="submit" value="Submit"></p>
+</form>
+
+<form method="post" action="/text" enctype="multipart/form-data">
+    <dl>
+	<textarea name="text" autocomplete="off"></textarea>
+    </dl>
+    <p><input type="submit" value="Submit"></p>
+</form>
