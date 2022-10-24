@@ -30,7 +30,7 @@ def upload_form():
     with open(os.path.join(path, 'messages.lst'), 'r') as f:
         messages = [i for i in f.read().split('<<MESSAGE>>') if i.strip() != '']
     fan = psutil.disk_usage(path="/")
-    diskinfo = str(round(fan.used/1000000000, 2)) + '/' + str(round(fan.free/1000000000, 2)) + ' GB (' + str(fan.percent) + '%)'
+    diskinfo = str(round(fan.used/1000000000, 2)) + '/' + str(round(fan.total/1000000000, 2)) + ' GB (' + str(fan.percent) + '%)'
     filesvfs = os.stat(UPLOAD_FOLDER)
     filesinfo = str(round(filesvfs.st_size/1024, 2)) + 'KB'
     messvfs = os.stat(os.path.join(path, 'messages.lst'))
