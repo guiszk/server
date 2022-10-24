@@ -84,8 +84,7 @@
   padding: 20px;
   text-align: center;
   margin-bottom: 60px;
-  box-shadow: rgb(27,188,53) 0px 0px 0px 3px, rgb(0,255,25) 0px 0px 0px 6px, rgb(255,255,255) 0px 0px 0px 9px, rgb(145,145,145) 0px 0px 0px 12px, rgb(0,0,0) 0px 0px 0px 15px;
-  /*box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;*/
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 3px, rgb(145,145,145) 0px 0px 0px 6px, rgb(255,255,255) 0px 0px 0px 9px, rgb(145,145,145) 0px 0px 0px 12px, rgb(0,0,0) 0px 0px 0px 15px;
 }
 
 @media (max-width: 780px) {
