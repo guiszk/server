@@ -1,0 +1,4 @@
+uploads/
+.dockerignore
+Dockerfile
+Dockerfile.prod
