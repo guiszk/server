@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 app=Flask(__name__)
 
 app.secret_key = "secret key"
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024*1024
 
 path = os.getcwd()
 # file Upload
@@ -18,7 +18,7 @@ if not os.path.isdir(UPLOAD_FOLDER):
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'csv', 'mp3', 'mp4', 'm4a', 'mkv', 'mov', 'ogg'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'csv', 'mp3', 'mp4', 'm4a', 'mkv', 'mov', 'ogg', 'zip', 'jar'])
 
 
 def allowed_file(filename):
@@ -48,8 +48,13 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
+        print(os.listdir(os.path.join(app.config['UPLOAD_FOLDER'])))
+        print(file)
         if file.filename == '':
             flash('No file selected for uploading')
+            return redirect(request.url)
+        if file.filename in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'])):
+            flash('File ' + file.filename + ' already exists.')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -57,7 +62,7 @@ def upload_file():
             flash('File successfully uploaded')
             return redirect('/')
         else:
-            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
+            flash('Allowed file types are ' + ', '.join(ALLOWED_EXTENSIONS))
             return redirect(request.url)
 
 @app.route('/text', methods=['POST'])
